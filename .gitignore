@@ -1,0 +1,29 @@
+######
+# core
+######
+
+/bin/*
+!/bin/data/
+
+#########################
+# IDE
+#########################
+
+# Visual Studio
+/*/*/*.sln
+/*/*/*.vcxproj
+/*/*/*.vcxproj.user
+/*/*/*.vcxproj.filters
+/*/*/icon.rc
+
+# vscode
+/.vscode/ipch
+/obj
+
+#########################
+# operating system
+#########################
+
+# Linux
+/*/*/Makefile
+/*/*/config.make
