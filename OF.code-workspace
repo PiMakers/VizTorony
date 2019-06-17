@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/mnt/LinuxData/OF/myGitHub/MyScripts"
+		},
+		{
+			"path": "../../openFrameworks"
+		},
+		{
+			"path": "/mnt/LinuxData/OF/myGitHub/MyScripts0"
+		},
+		{
+			"path": "/mnt/LinuxData/OF/myApps/2018.05.09.BaloghZsolti_Skoda/DmxPro_Sender"
+		}
+	],
+	"settings": {
+		"terminal.integrated.confirmOnExit": true,
+		"terminal.integrated.copyOnSelection": true,
+		"terminal.integrated.env.linux": {
+			"OF_ROOT": "/mnt/LinuxData/OF/openFrameworks",
+		},
+		"files.associations": {
+			"system_error": "cpp",
+			"iostream": "cpp",
+			"limits": "cpp",
+			"ostream": "cpp",
+			"array": "cpp",
+			"bitset": "cpp",
+			"string_view": "cpp",
+			"initializer_list": "cpp",
+			"utility": "cpp"
+		},
+		"terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe", 
+		"terminal.integrated.shellArgs.windows": ["--login", "-i"],
+		"terminal.integrated.env.windows": { 
+			 "MSYSTEM": "MINGW32", 
+			 "CHERE_INVOKING":"1",
+			 "OF_ROOT": "i:/DataNTFS/OF/openFrameworks"
+			} 
+	}
+}

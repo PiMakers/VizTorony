@@ -1,1 +1,19 @@
 # Swich off comuters
+# https://lifehacker.com/shut-down-your-windows-pc-remotely-from-linux-5275652
+
+# on Linux
+sudo apt-get install samba-common
+
+# Create file bin/data/turnOffAll.sh
+
+#!/bin/bash
+#net rpc shutdown -I IPADDRESS -U USERNAME%PASSWORD
+
+IPADDRESS=192.168.0.59
+USERNAME=
+PASSWORD=ZZSJR5qWs
+RESTART="-r -t 0"
+FORCE="-f"
+
+net rpc shutdown  ${RESTART} ${FORCE} -I ${IPADDRESS} -U "${USERNAME}%${PASSWORD}"
+# sudo shutdown now

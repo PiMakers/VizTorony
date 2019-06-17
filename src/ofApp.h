@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp, public ofThread {
 
 	public:
 		void setup();
@@ -21,7 +21,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+		void threadedFunction();
+
 		ofRectangle myRect;
+		string cmd;
 		ofTrueTypeFont font;
-		
+		ofColor buttonColor;
 };

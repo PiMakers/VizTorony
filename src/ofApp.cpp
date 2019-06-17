@@ -3,10 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    myRect.set(0,0,ofGetWindowWidth()/3,ofGetWindowHeight()/3);
-    ofSetColor(255,0,0, 100);
-
+    buttonColor.set(ofColor::green);
+    buttonColor.setBrightness(200);
     font.load("verdana.ttf",20);
+    myRect=font.getStringBoundingBox("A rendszer kikapcsolása", ofGetWindowWidth()/3,ofGetWindowHeight()/3);
+    font.load("verdana.ttf",10);
 }
 
 //--------------------------------------------------------------
@@ -16,10 +17,17 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
-    ofDrawRectangle(myRect);
+    
+    myRect.alignTo(font.getStringBoundingBox("A rendszer kikapcsolása", ofGetWindowWidth()/3,ofGetWindowHeight()/3));
+    ofSetColor(buttonColor);
+    ofFill();
+    ofDrawRectRounded(myRect,10.0);
     ofSetColor(ofColor::black);
+    ofNoFill();
+    ofDrawRectRounded(myRect,10.0);
     font.drawString("A rendszer kikapcsolása", ofGetWindowWidth()/3,ofGetWindowHeight()/3);
+    ofDrawBitmapString ("\n\n" + cmd, ofGetWindowWidth()/3.2,ofGetWindowHeight()/3);
+    ofSetColor(255, 0, 0);
 }
 
 //--------------------------------------------------------------
@@ -36,8 +44,8 @@ void ofApp::keyReleased(int key){
 void ofApp::mouseMoved(int x, int y ){
 
     if (myRect.inside( x, y) ) 
-        ofSetColor(0,255,0, 255);
-    else ofSetColor(255, 0, 0, 100);
+        buttonColor.setBrightness(255);
+    else buttonColor.setBrightness(200);
 
 }
 
@@ -48,24 +56,27 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    if (myRect.inside( x, y) ) 
+    if (myRect.inside( x, y) && button == 0) 
         {
 		// call the system command say
 		#ifdef TARGET_OSX
-			string cmd = "say -v " + words[step] + " "; // create the command
+			oflogNotice(__func__) << "NOT TESTED !!! cmd = "say -v " + words[step] + " ; // create the command
 		#endif
 		#ifdef TARGET_WIN32
-			string cmd = "data\\SayStatic.exe " + words[step];        // create the command
+            oflogNotice(__func__) << "NOT TESTED !!! cmd = "data\\SayStatic.exe " + words[step]";        // create the command
+			
 		#endif
 		#ifdef TARGET_LINUX
-			string cmd = "data/turnOffAll.sh";           // create the command
+			cmd = "data/turnOffAll.sh";           // create the command
+            ofFile cmdFile (cmd);
+            cmdFile.setExecutable();
 		#endif
 
                 // print command and execute it
-                cout << cmd << endl;
-                ofSystem(cmd.c_str());
+                buttonColor.setBrightness(200);
+                //cmd = ofSystem(cmd.c_str());
+                startThread();
         }
-    else ofSetColor(255, 0, 0);
 }
 
 //--------------------------------------------------------------
@@ -75,7 +86,10 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+/*
+    if (myRect.inside( x, y) )
+        ofSetColor(ofColor::deepPink);
+*/
 }
 
 //--------------------------------------------------------------
@@ -96,4 +110,12 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void ofApp::threadedFunction() {
+    while(isThreadRunning()) {
+        cmd = ofSystem(cmd.c_str());
+//        cout << cmd << endl;
+        stopThread();
+    }
 }
